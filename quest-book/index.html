@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Eberron's Secrets Quest Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Alegreya:ital,wght@0,400;0,600;1,400&family=Alegreya+Sans+SC:wght@500;700&display=swap">
+<style>
+/* Field journal: sticky tab rail, index list, single reading column. Byeshk violet on slate, rust for danger, brass for clues. */
+:root{
+  --bg:#17151c; --panel:#201d27; --ink:#e9e3d6; --mute:#a59cab; --line:#3a3443;
+  --byeshk:#a98ad6; --rust:#d0785a; --brass:#d7b56a; --green:#7fb88a;
+  --display:"Cormorant Garamond",Georgia,serif; --body:"Alegreya",Georgia,serif; --label:"Alegreya Sans SC","Gill Sans",sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root{--bg:#f3efe6;--panel:#fbf8f1;--ink:#26212c;--mute:#6c6273;--line:#d9d0c2;--byeshk:#6a4a9c;--rust:#a24a2e;--brass:#8a6716;--green:#2f7a44;color-scheme:light}}
+*{box-sizing:border-box}
+html{scroll-padding-top:120px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--body)}
+img{max-width:100%}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);
+  padding:10px max(16px,env(safe-area-inset-right)) 0 max(16px,env(safe-area-inset-left));padding-top:max(10px,env(safe-area-inset-top))}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.brand h1{font:700 1.6rem/1.1 var(--display);margin:0;letter-spacing:.01em}
+.brand span{font:500 .8rem var(--label);color:var(--mute);letter-spacing:.08em}
+.brand button{margin-left:auto;font:500 .75rem var(--label);letter-spacing:.06em;background:none;border:0;color:var(--mute);cursor:pointer}
+nav{display:flex;gap:4px;overflow-x:auto;margin-top:8px;scrollbar-width:none}
+nav button{font:500 .85rem var(--label);letter-spacing:.06em;background:none;border:0;color:var(--mute);padding:8px 10px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
+nav button[aria-current="true"]{color:var(--ink);border-bottom-color:var(--byeshk)}
+nav button:focus-visible,a:focus-visible,.item:focus-visible,input:focus-visible,button:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+main{padding:16px max(16px,env(safe-area-inset-right)) 60px max(16px,env(safe-area-inset-left));max-width:780px;margin:0 auto}
+#search{width:100%;font:inherit;padding:10px 12px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;margin-bottom:14px}
+.list{display:grid;gap:8px}
+.item{display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:center;padding:8px;background:var(--panel);border:1px solid var(--line);border-radius:6px;text-decoration:none;color:inherit}
+.item img,.item .ph{width:56px;height:72px;object-fit:contain;border-radius:3px;background:var(--line)}
+.item img.bg{object-fit:cover}
+.item b{font:700 1.15rem/1.2 var(--display);display:block}
+.item small{color:var(--mute);font-size:.85rem;display:block;min-width:0}
+.thread{margin-bottom:28px}
+.thread h2{font:700 1.5rem/1.2 var(--display);margin:0 0 4px;text-wrap:balance}
+.kicker{font:500 .78rem var(--label);letter-spacing:.1em;color:var(--brass);text-transform:uppercase}
+article{min-width:0}
+.back{font:500 .85rem var(--label);letter-spacing:.06em;color:var(--byeshk);background:none;border:0;padding:0;cursor:pointer;margin-bottom:10px}
+.hero{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:10px}
+.hero img{width:100%;max-width:340px;border-radius:4px;border:1px solid var(--line);cursor:zoom-in}
+.hero.wide img{max-width:100%}
+.scenes{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:12px 0}
+.scenes figure{margin:0}.scenes img{width:100%;border-radius:4px;border:1px solid var(--line);display:block;cursor:zoom-in}
+.scenes figcaption{font:500 .78rem var(--label);letter-spacing:.06em;color:var(--mute);margin-top:4px}
+@media (min-width:640px){.hero{grid-template-columns:220px 1fr;align-items:start}.hero img{max-width:220px}.hero.wide{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.hero.wide img{max-width:100%}}
+article h1{font:700 2.1rem/1.1 var(--display);margin:4px 0 6px;text-wrap:balance}
+.sub{color:var(--mute);font-style:italic}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{font:500 .78rem var(--label);letter-spacing:.04em;padding:3px 8px;border:1px solid var(--line);border-radius:99px;color:var(--mute)}
+.chip.diff{color:var(--rust);border-color:var(--rust)}
+.body h2{font:700 1.45rem var(--display);margin:1.6em 0 .3em;color:var(--byeshk)}
+.body h3{font:700 1.2rem var(--display);margin:1.4em 0 .2em}
+.body p{margin:.5em 0}
+.body a[data-id]{color:var(--byeshk);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.body a.dead{color:inherit;text-decoration:none;cursor:default}
+.body blockquote,.body .eb-read{margin:1em 0;padding:12px 16px;background:var(--panel);border-left:3px solid var(--byeshk);font-style:italic}
+.body .eb-tag{display:block;font:500 .72rem var(--label);letter-spacing:.1em;color:var(--byeshk);font-style:normal;text-transform:uppercase}
+.body .eb-hook{padding-left:10px;border-left:2px solid var(--line)}
+.body .eb-tier{font:700 .72rem var(--label);letter-spacing:.06em;color:var(--brass);margin-right:6px}
+.body .eb-secret{border:1px dashed var(--rust);padding:8px 12px;border-radius:4px}
+.body .eb-services{font:500 .85rem var(--label);color:var(--mute)}
+.body .eb-npc{display:flex;gap:10px;align-items:flex-start;background:var(--panel);padding:10px;border-radius:4px;margin:.6em 0}
+.body .eb-npc img{width:64px;border-radius:3px}
+.body .eb-npc-name{font:700 1.05rem var(--display);display:block}
+.body .eb-npc-role{color:var(--mute);font-size:.85rem}
+.body img{max-width:100%;height:auto;border-radius:4px}
+.body hr{border:0;border-top:1px solid var(--line);margin:1.4em 0}
+.body ul,.body ol{padding-left:1.3em}
+.body .tbl{overflow-x:auto}
+.body table{border-collapse:collapse;width:100%;font-size:.92rem}
+.body td,.body th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.body td p,.body th p{margin:0}
+.clue{color:var(--brass)}
+details.gm{margin-top:24px;border:1px solid var(--rust);border-radius:6px;padding:8px 12px}
+details.gm summary{font:700 .85rem var(--label);letter-spacing:.08em;color:var(--rust);cursor:pointer}
+.empty{color:var(--mute);font-style:italic}
+img[data-ek]:not([src]){background:var(--line);min-height:40px}
+#lock{max-width:360px;margin:18vh auto 0;padding:0 20px;text-align:center}
+#lock h1{font:700 2rem/1.1 var(--display);margin:0 0 4px}
+#lock p{color:var(--mute);margin:0 0 18px}
+#lock input[type=password]{width:100%;font:inherit;padding:10px 12px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px}
+#lock label{display:flex;gap:8px;align-items:center;justify-content:center;font-size:.9rem;color:var(--mute);margin:10px 0}
+#lock button{font:700 .9rem var(--label);letter-spacing:.08em;padding:10px 20px;border:0;border-radius:6px;background:var(--byeshk);color:#17151c;cursor:pointer}
+#lock .err{color:var(--rust);min-height:1.6em;margin-top:10px}
+#zoom{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;cursor:zoom-out}
+#zoom img{max-width:100vw;max-height:100vh;object-fit:contain}
+@media (prefers-reduced-motion:no-preference){article{animation:in .18s ease-out}@keyframes in{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}}
+</style>
+</head>
+<body>
+<form id="lock" hidden>
+  <h1>Eberron's Secrets</h1>
+  <p>GM Quest Book</p>
+  <input id="pw" type="password" autocomplete="current-password" placeholder="Password" aria-label="Password" required>
+  <label><input id="remember" type="checkbox" checked> Remember on this device</label>
+  <button type="submit">Open the book</button>
+  <div class="err" id="err" role="alert"></div>
+</form>
+<div id="app" hidden>
+<header>
+  <div class="brand"><h1>Eberron's Secrets</h1><span>GM QUEST BOOK</span><button id="logout" type="button">Lock</button></div>
+  <nav id="tabs"></nav>
+</header>
+<main id="main"></main>
+</div>
+<script>
+const CFG={"salt": "Y8CtZEFY4Hd0lAVLS83y6g==", "iter": 600000, "v": "df5cc1d90e"};
+const STORE="qb-key-"+CFG.salt;
+const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+let KEY=null, D={}, IM={}, THREADS=[];
+const store={get(){try{return localStorage.getItem(STORE)}catch(e){return null}},set(v){try{localStorage.setItem(STORE,v)}catch(e){}},del(){try{localStorage.removeItem(STORE)}catch(e){}}};
+
+async function deriveKey(pw){
+  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveBits"]);
+  const bits=await crypto.subtle.deriveBits({name:"PBKDF2",salt:b64(CFG.salt),iterations:CFG.iter,hash:"SHA-256"},base,256);
+  return new Uint8Array(bits);
+}
+async function useRawKey(raw){KEY=await crypto.subtle.importKey("raw",raw,"AES-GCM",false,["decrypt"]);}
+async function fetchPlain(path){
+  const r=await fetch(path+"?v="+CFG.v);
+  if(!r.ok) throw new Error("fetch "+path+" "+r.status);
+  const buf=new Uint8Array(await r.arrayBuffer());
+  return crypto.subtle.decrypt({name:"AES-GCM",iv:buf.slice(0,12)},KEY,buf.slice(12));
+}
+async function loadData(){
+  const plain=await fetchPlain("d.bin");
+  const txt=await new Response(new Blob([plain]).stream().pipeThrough(new DecompressionStream("gzip"))).text();
+  const data=JSON.parse(txt); D=data.docs; IM=data.imgs; THREADS=data.threads;
+}
+
+// Images are fetched and decrypted only when they come into view.
+const blobs={};
+async function imgURL(id){
+  if(!blobs[id]) blobs[id]=fetchPlain("i/"+id+".bin").then(p=>URL.createObjectURL(new Blob([p],{type:"image/webp"})));
+  return blobs[id];
+}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;io.unobserve(e.target);const el=e.target;imgURL(el.dataset.ek).then(u=>{el.src=u}).catch(()=>el.remove())}),{rootMargin:"400px"});
+function hydrate(root){root.querySelectorAll("img[data-ek]:not([src])").forEach(el=>io.observe(el))}
+
+const main=document.getElementById("main"), tabs=document.getElementById("tabs");
+const TABS=[["threads","Questlines"],["quest","Quests"],["character","People"],["faction","Factions"],["location","Places"],["lore","Lore"],["creature","Bestiary"],["handout","Handouts"],["item","Items"],["shop","Shops"]];
+let tab="threads", q="";
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const img=src=>src&&IM[src]?IM[src]:null;
+function prep(html){
+  if(!html) return "";
+  const t=document.createElement("template");
+  t.innerHTML=html.replace(/src="(IMG:)?([^"]+)"/g,(m,pre,p)=>IM[p]?`data-ek="${IM[p]}"`:'src=""');
+  t.content.querySelectorAll("img[src='']").forEach(e=>e.remove());
+  t.content.querySelectorAll("a[data-ref]").forEach(a=>{const id=a.dataset.ref.split(".").pop();if(D[id]){a.dataset.id=id;a.href="#d-"+id}else{a.classList.add("dead")}a.removeAttribute("data-ref")});
+  t.content.querySelectorAll("table").forEach(tb=>{const w=document.createElement("div");w.className="tbl";tb.replaceWith(w);w.appendChild(tb)});
+  t.content.querySelectorAll("p > strong").forEach(s=>{if(s.textContent.startsWith("➜"))s.parentElement.classList.add("clue")});
+  return t.innerHTML;
+}
+function drawTabs(){tabs.innerHTML=TABS.map(([k,l])=>`<button data-tab="${k}" aria-current="${k===tab}">${l}</button>`).join("")}
+tabs.onclick=e=>{const b=e.target.closest("button");if(!b)return;q="";location.hash=b.dataset.tab;};
+function listView(){
+  if(tab==="threads"){
+    main.innerHTML=THREADS.map(t=>`<section class="thread"><div class="kicker">${t.name.startsWith("How")?"Start here":"Questline"}</div><h2>${esc(t.name.replace(/^[A-Z]\. /,""))}</h2><div class="body">${prep(t.body)}</div></section>`).join("");
+    hydrate(main);return;
+  }
+  const items=Object.entries(D).filter(([,v])=>v.kind===tab||(tab==="handout"&&v.kind==="map")||(tab==="location"&&v.kind==="place")).sort((a,b)=>a[1].name.localeCompare(b[1].name,undefined,{numeric:true}));
+  main.innerHTML=`<input id="search" type="search" placeholder="Search ${TABS.find(t=>t[0]===tab)[1].toLowerCase()}…" value="${esc(q)}"><div class="list" id="list"></div>`;
+  const s=document.getElementById("search"), L=document.getElementById("list");
+  const draw=()=>{const f=q.toLowerCase();const rows=items.filter(([,v])=>!f||(v.name+" "+(v.sub||"")+" "+(v.body||"")).toLowerCase().includes(f));
+    L.innerHTML=rows.length?rows.map(([id,v])=>{const i=img(v.src);return `<a class="item" href="#d-${id}">${i?`<img data-ek="${i}" alt="" class="${v.wide?"bg":""}">`:`<span class="ph"></span>`}<span style="min-width:0"><b>${esc(v.name)}</b><small>${esc(v.sub||v.header||"")}</small></span></a>`}).join(""):`<p class="empty">Nothing matches “${esc(q)}”.</p>`;
+    hydrate(L);};
+  s.oninput=()=>{q=s.value;draw()};draw();
+}
+function docView(id){
+  const v=D[id]; if(!v){location.hash="threads";return}
+  tab={map:"handout",place:"location"}[v.kind]||v.kind; drawTabs();
+  const i=(v.kind==="handout"||v.kind==="map")?null:img(v.src), m=v.meta&&typeof v.meta==="object"?v.meta:null;
+  const chips=m?[["Given by",m.giver],["Where",m.location],["Deadline",m.deadline]].filter(x=>x[1]).map(x=>`<span class="chip">${esc(x[0])}: ${esc(x[1])}</span>`).join("")+(m.difficulty?`<span class="chip diff">${esc(m.difficulty)}</span>`:""):(Array.isArray(v.tags)?v.tags:[]).map(t=>`<span class="chip">${esc(t)}</span>`).join("");
+  main.innerHTML=`<article><button class="back" type="button" id="back">← Back</button>
+   <div class="hero${v.wide?" wide":""}">${i?`<img data-ek="${i}" alt="${esc(v.name)}">`:""}<div style="min-width:0"><div class="kicker">${esc({quest:"Quest",character:"Person",faction:"Faction",lore:"Lore",creature:"Bestiary",place:"Place",location:"Place",handout:"Player handout",map:"GM map",item:"Item",shop:"Shop"}[v.kind]||v.kind)}</div><h1>${esc(v.name)}</h1>${v.sub&&!m?`<div class="sub">${esc(v.sub)}</div>`:""}${v.header?`<div class="sub">${esc(v.header)}</div>`:""}<div class="chips">${chips}</div></div></div>
+   ${v.scenes?.length?`<div class="scenes">${v.scenes.map(([p,n])=>IM[p]?`<figure><img data-ek="${IM[p]}" alt="${esc(n)}"><figcaption>${esc(n)}</figcaption></figure>`:"").join("")}</div>`:""}
+   <div class="body">${prep(v.body)||'<p class="empty">No description yet.</p>'}</div>
+   ${v.gm&&v.gm.replace(/<[^>]+>/g,"").trim().length>12?`<details class="gm"><summary>GM ONLY</summary><div class="body">${prep(v.gm)}</div></details>`:""}</article>`;
+  document.getElementById("back").onclick=()=>history.length>1?history.back():(location.hash=tab);
+  hydrate(main);window.scrollTo(0,0);
+}
+function route(){const h=decodeURIComponent(location.hash.slice(1));if(h.startsWith("d-"))return docView(h.slice(2));tab=TABS.some(t=>t[0]===h)?h:"threads";drawTabs();listView();window.scrollTo(0,0)}
+
+// Tap any picture to see it full screen.
+main.addEventListener("click",e=>{const el=e.target.closest("img[src]");if(!el||el.closest(".item"))return;const z=document.createElement("div");z.id="zoom";z.innerHTML=`<img src="${el.src}" alt="">`;z.onclick=()=>z.remove();document.body.appendChild(z)});
+addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("zoom")?.remove()});
+
+async function open(){
+  await loadData();
+  document.getElementById("lock").hidden=true;document.getElementById("app").hidden=false;
+  addEventListener("hashchange",route);route();
+}
+document.getElementById("logout").onclick=()=>{store.del();location.hash="";location.reload()};
+document.getElementById("lock").onsubmit=async e=>{
+  e.preventDefault();const err=document.getElementById("err");err.textContent="Opening…";
+  try{
+    const raw=await deriveKey(document.getElementById("pw").value);await useRawKey(raw);await open();
+    if(document.getElementById("remember").checked)store.set(btoa(String.fromCharCode(...raw)));
+  }catch(x){console.warn(x);err.textContent="That password didn't open the book.";}
+};
+(async()=>{
+  const saved=store.get();
+  if(saved){try{await useRawKey(b64(saved));await open();return}catch(e){store.del()}}
+  document.getElementById("lock").hidden=false;document.getElementById("pw").focus();
+})();
+</script>
+</body>
+</html>

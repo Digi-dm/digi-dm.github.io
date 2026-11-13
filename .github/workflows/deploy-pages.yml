@@ -10,6 +10,9 @@ jobs:
       - {uses: actions/setup-node@v4, with: {node-version: '24'}}
       - {run: npm ci}
       - {run: npm run build}
+      # Encrypted Quest Book, served at /quest-book/
+      - {uses: actions/checkout@v4, with: {path: site-extras, sparse-checkout: quest-book}}
+      - {run: cp -r site-extras/quest-book dist/quest-book}
       - {uses: actions/upload-pages-artifact@v3, with: {path: dist}}
   deploy:
     needs: build
