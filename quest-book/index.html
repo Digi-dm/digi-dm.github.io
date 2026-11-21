@@ -112,7 +112,7 @@ img[data-ek]:not([src]){background:var(--line);min-height:40px}
 <main id="main"></main>
 </div>
 <script>
-const CFG={"salt": "Y8CtZEFY4Hd0lAVLS83y6g==", "iter": 600000, "v": "71b8476c0d"};
+const CFG={"salt": "Y8CtZEFY4Hd0lAVLS83y6g==", "iter": 600000, "v": "6149a5228b"};
 const STORE="qb-key-"+CFG.salt;
 const b64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 let KEY=null, D={}, IM={}, THREADS=[];
@@ -146,7 +146,7 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return
 function hydrate(root){root.querySelectorAll("img[data-ek]:not([src])").forEach(el=>io.observe(el))}
 
 const main=document.getElementById("main"), tabs=document.getElementById("tabs");
-const TABS=[["threads","Questlines"],["quest","Quests"],["character","People"],["faction","Factions"],["location","Places"],["lore","Lore"],["creature","Bestiary"],["handout","Handouts"],["item","Items"],["shop","Shops"]];
+const TABS=[["threads","Questlines"],["quest","Quests"],["character","People"],["faction","Factions"],["location","Places"],["lore","Lore"],["creature","Bestiary"],["handout","Handouts"],["item","Items"],["shop","Shops"],["event","Timeline"],["achievement","Achievements"]];
 let tab="threads", q="";
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const img=src=>src&&IM[src]?IM[src]:null;
@@ -167,7 +167,7 @@ function listView(){
     main.innerHTML=THREADS.map(t=>`<section class="thread"><div class="kicker">${t.name.startsWith("How")?"Start here":"Questline"}</div><h2>${esc(t.name.replace(/^[A-Z]\. /,""))}</h2><div class="body">${prep(t.body)}</div></section>`).join("");
     hydrate(main);return;
   }
-  const items=Object.entries(D).filter(([,v])=>v.kind===tab||(tab==="handout"&&v.kind==="map")||(tab==="location"&&v.kind==="place")).sort((a,b)=>a[1].name.localeCompare(b[1].name,undefined,{numeric:true}));
+  const items=Object.entries(D).filter(([,v])=>v.kind===tab||(tab==="handout"&&v.kind==="map")||(tab==="location"&&v.kind==="place")).sort((a,b)=>tab==="event"?(a[1].year-b[1].year||0):a[1].name.localeCompare(b[1].name,undefined,{numeric:true}));
   main.innerHTML=`<input id="search" type="search" placeholder="Search ${TABS.find(t=>t[0]===tab)[1].toLowerCase()}…" value="${esc(q)}"><div class="list" id="list"></div>`;
   const s=document.getElementById("search"), L=document.getElementById("list");
   const draw=()=>{const f=q.toLowerCase();const rows=items.filter(([,v])=>!f||(v.name+" "+(v.sub||"")+" "+(v.body||"")).toLowerCase().includes(f));
@@ -181,7 +181,7 @@ function docView(id){
   const i=(v.kind==="handout"||v.kind==="map")?null:img(v.src), m=v.meta&&typeof v.meta==="object"?v.meta:null;
   const chips=m?[["Given by",m.giver],["Where",m.location],["Deadline",m.deadline]].filter(x=>x[1]).map(x=>`<span class="chip">${esc(x[0])}: ${esc(x[1])}</span>`).join("")+(m.difficulty?`<span class="chip diff">${esc(m.difficulty)}</span>`:""):(Array.isArray(v.tags)?v.tags:[]).map(t=>`<span class="chip">${esc(t)}</span>`).join("");
   main.innerHTML=`<article><button class="back" type="button" id="back">← Back</button>
-   <div class="hero${v.wide?" wide":""}">${i?`<img data-ek="${i}" alt="${esc(v.name)}">`:""}<div style="min-width:0"><div class="kicker">${esc({quest:"Quest",character:"Person",faction:"Faction",lore:"Lore",creature:"Bestiary",place:"Place",location:"Place",handout:"Player handout",map:"GM map",item:"Item",shop:"Shop"}[v.kind]||v.kind)}</div><h1>${esc(v.name)}</h1>${v.sub&&!m?`<div class="sub">${esc(v.sub)}</div>`:""}${v.header?`<div class="sub">${esc(v.header)}</div>`:""}<div class="chips">${chips}</div></div></div>
+   <div class="hero${v.wide?" wide":""}">${i?`<img data-ek="${i}" alt="${esc(v.name)}">`:""}<div style="min-width:0"><div class="kicker">${esc({quest:"Quest",character:"Person",faction:"Faction",lore:"Lore",creature:"Bestiary",place:"Place",location:"Place",handout:"Player handout",map:"GM map",item:"Item",shop:"Shop",event:"Timeline",achievement:"Achievement"}[v.kind]||v.kind)}</div><h1>${esc(v.name)}</h1>${v.sub&&!m?`<div class="sub">${esc(v.sub)}</div>`:""}${v.header?`<div class="sub">${esc(v.header)}</div>`:""}<div class="chips">${chips}</div></div></div>
    ${v.scenes?.length?`<div class="scenes">${v.scenes.map(([p,n])=>IM[p]?`<figure><img data-ek="${IM[p]}" alt="${esc(n)}"><figcaption>${esc(n)}</figcaption></figure>`:"").join("")}</div>`:""}
    <div class="body">${prep(v.body)||'<p class="empty">No description yet.</p>'}</div>
    ${v.gm&&v.gm.replace(/<[^>]+>/g,"").trim().length>12?`<details class="gm"><summary>GM ONLY</summary><div class="body">${prep(v.gm)}</div></details>`:""}</article>`;
